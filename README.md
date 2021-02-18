@@ -1,0 +1,2 @@
+# WeebGang
+Szoftverfejlesztés GitHub
