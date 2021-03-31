@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "FileManagerThing.h"
+#include "GenericPlatform/GenericPlatformProcess.h"
 #include "HAL/FileManagerGeneric.h"
 #include "Misc/Paths.h"
 
@@ -30,6 +30,9 @@ void AFileManagerThing::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *pathFull);
 	}
 
+	//Starts the external process(removed)
+	/*FPlatformProcess::CreateProc(TEXT("G:/School/Szoftfejl/PuzzleGame/Source/ConsoleApp1.exe"), nullptr, true, false, false, nullptr, 0, TEXT("G:/School/Szoftfejl/PuzzleGame/Source"), nullptr);
+	UE_LOG(LogTemp, Warning, TEXT("Did the create process?"));*/
 }
 
 // Called every frame
