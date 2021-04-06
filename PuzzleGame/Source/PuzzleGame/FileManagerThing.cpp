@@ -4,6 +4,10 @@
 #include "GenericPlatform/GenericPlatformProcess.h"
 #include "HAL/FileManagerGeneric.h"
 #include "Misc/Paths.h"
+#include "opencv2\highgui\highgui.hpp"
+
+
+using namespace cv;
 
 // Sets default values
 AFileManagerThing::AFileManagerThing()
@@ -30,6 +34,8 @@ void AFileManagerThing::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *pathFull);
 	}
 
+	UE_LOG(LogTemp, Warning, TEXT("Starting imgTest"));
+	imgTest();
 	//Starts the external process(removed)
 	/*FPlatformProcess::CreateProc(TEXT("G:/School/Szoftfejl/PuzzleGame/Source/ConsoleApp1.exe"), nullptr, true, false, false, nullptr, 0, TEXT("G:/School/Szoftfejl/PuzzleGame/Source"), nullptr);
 	UE_LOG(LogTemp, Warning, TEXT("Did the create process?"));*/
@@ -42,3 +48,42 @@ void AFileManagerThing::Tick(float DeltaTime)
 
 }
 
+void AFileManagerThing::imgTest() {
+	Mat img;
+
+	img = imread("G:/School/Szoftfejl/PuzzleGame/CutTest/gnocchi.jpg", 1);
+	if (!img.data || img.empty())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Couldn't open image"));
+	}
+	else {
+		FString path = FPaths::ProjectDir();
+
+		path += FString("CutTest/");
+		// get the image data
+		int height = img.rows;
+		int width = img.cols;
+		int cntr = 0;
+
+		// ciklussal sokfele darabban
+		//subdivide(cntr, image, 3, 3);
+		int colDivisor = 3;
+		int rowDivisor = 3;
+
+		for (int y = 0; y < img.cols; y += img.cols / colDivisor)
+		{
+			for (int x = 0; x < img.rows; x += img.rows / rowDivisor)
+			{
+				if (0 <= x && 0 <= (img.cols / colDivisor) && y + (img.cols / colDivisor) <= img.cols && 0 <= y && 0 <= (img.rows / rowDivisor) && x + (img.rows / rowDivisor) <= img.rows)
+				{
+					Mat cutted = img(cv::Rect(y, x, (img.cols / colDivisor), (img.rows / rowDivisor)));
+
+					// saving part:
+					std::string savingName = std::string(TCHAR_TO_UTF8(*path)) + "image" + std::to_string(++cntr) + ".jpg";
+					imwrite(savingName, cutted);
+				}
+			}
+		}
+	}
+	
+}
