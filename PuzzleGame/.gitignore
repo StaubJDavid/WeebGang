@@ -72,3 +72,9 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+.Offline/
+.OfflineCut/
+.Online/
+.OnlineCut/
+.CutTest/
