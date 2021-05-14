@@ -53,6 +53,8 @@ public class PuzzleGame : ModuleRules
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
+		//AddThirdPartyPrivateStaticDependencies(Target, "libcurl");
+		AddEngineThirdPartyPrivateStaticDependencies(Target, "libcurl");
 
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
